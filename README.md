@@ -1,5 +1,25 @@
 # Stack Elastic Search | Moteur de recherche
 
+
+## Fonctionnalités
+
+- Recherche de documents en full-text
+ ```
+'localhost:9200/search_engine/_search?query='facebook''
+ ```
+
+- Crawling de site web via CURL en PHP
+
+- Indexiation de document après du site (url du site , nom de la page web , contenu de la page)
+ ```
+'localhost:9200/search_engine/_doc/
+{
+ 'link':'...' ,
+ 'title':'...' ,
+ 'content':'...'   
+}
+ ```
+
 ## Installation
 
 composer install
