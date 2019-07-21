@@ -9,21 +9,18 @@
                     'bool' => [
                         'should' => [
                             'match' => ['title' => $query],
-                            'match' => ['body' => $query],
-                            'match' => ['keywords' => $query]
-
+                            'match' => ['link' => $query],
+                            'match' => ['content' => $query]
                         ]
                     ]
                 ]
             ]
-        ]);
+        ] );
 
         if( $query['hits']['total'] >= 1 ){
             $results =  $query['hits']['hits'];
         }
-
         //echo '<pre>',print_r($query), '</pre>';
-
     }
     
 ?>  
@@ -35,45 +32,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Moteur de recherche | Elastic search</title>
+
+   
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="css/scrolling-nav.css" rel="stylesheet">
+
 </head>
-<body>
+<body id="page-top">
 
-        <form action="/" autocomplete="off" method="get" >
-            <label ></label>
-            <input type="text" name="query" placeholder="Recherchez quelque chose">
-        
-            <input type="submit" value="Rechercher">
-        </form>
-        <hr>
+          <section class="bg-primary text-white">
+    <div class="container text-left">
+      <h1>Votre moteur de recherche</h1>
+      <br>
+      <br>
+      <form action="/" autocomplete="off" method="get" >
+          <div class="md-form">
+              <input type="text" name="query" class="form-control" placeholder="Votre recherche.." id="">
+
+            </div>
+            <input type="submit"  class="btn btn-primary"  value="Envoyer">
+
+      </form>
+    </div>
+  </section>
+
+       
+
         <br>
-        <?php
 
-            if(isset($results)){
-                foreach($results as $r){
-                    ?>
-                        <div class="result">
-                            
-                            <a href="#<?php echo $r['_id']; ?>">
-                                <?php echo $r['_source']['title']; ?>
-                            </a>
-
-                            <div class="extract-body">
-                            <?php echo substr($r['_source']['body'],0,100) ; ?>
-                            </div>
-
-                            <div class="result-keywords">
-                              <b><?php echo $r['_source']['keywords'] ; ?></b>
-                            </div>
-                            <br>
-                            <br>
-                        </div>
                     <?php
-                }
-            }
-            ?>
 
+                    if(isset($results)){
+
+                        foreach($results as $r){
+                            ?>
+                                <section id="about">
+                                        <div class="container">
+
+                                        <div class="row">
+                                            <div class="col-lg-12 mx-auto">
+                                            <h2> <?php echo $r['_source']['title']; ?></h2>
+                                            <p class="lead">
+                                            <h2> <a href="<?php echo $r['_source']['link']; ?>"></a><?php echo $r['_source']['link']; ?></h2>
+                                            </p>
+
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </section>
+                                    <?php
+                                    }
+                                }
+                                ?>
 
         
+        <script src="js/extention/choices.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/extention/custom-materialize.js"></script>
+        <script src="js/extention/flatpickr.js"></script>
 
 </body>
 </html>
