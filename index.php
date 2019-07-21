@@ -35,8 +35,9 @@
 
    
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://materializecss.com/dist/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="https://materializecss.com/templates/starter-template/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 <!-- Custom styles for this template -->
 <link href="css/scrolling-nav.css" rel="stylesheet">
 
@@ -62,37 +63,48 @@
        
 
         <br>
-
+       
                     <?php
 
                     if(isset($results)){
-
-                        foreach($results as $r){
+                        if(count($results) >0){
+                            foreach($results as $r){
+                                ?>
+                               
+                               <div class="row container">
+                                    <div class="col s12">
+                                    <div class="card">
+                                                <div class="card-content">
+                                                <span class="card-title"> <h7><?php echo $r['_source']['title']; ?></h7> </span>
+                                                <span class="teal text-lighten-2" >
+                                                    <p>
+                                                        <h6>  <a href="<?php echo $r['_source']['link']; ?>"><?php echo $r['_source']['link']; ?></a></h6>
+                                                    </p>
+                                                </span>
+                                                </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                        <?php
+                                        }
+                        }else{
                             ?>
-                                <section id="about">
-                                        <div class="container">
-
-                                        <div class="row">
-                                            <div class="col-lg-12 mx-auto">
-                                            <h2> <?php echo $r['_source']['title']; ?></h2>
-                                            <p class="lead">
-                                            <h2> <a href="<?php echo $r['_source']['link']; ?>"></a><?php echo $r['_source']['link']; ?></h2>
-                                            </p>
-
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </section>
-                                    <?php
-                                    }
-                                }
+                            <div class="container">
+                                <hr>
+                                <span class="card-title">
+                                <p><?php echo count($query['hits']['hits']) ?> résultat(s)</p>
+                                </span>
+                            </div>
+                            
+                            <?php
+                        }
+                        
+                    }
                                 ?>
 
-        
-        <script src="js/extention/choices.js"></script>
-        <script src="js/main.js"></script>
-        <script src="js/extention/custom-materialize.js"></script>
-        <script src="js/extention/flatpickr.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://materializecss.com/bin/materialize.js"></script>
+  <script src="https://materializecss.com/templates/starter-template/js/init.js"></script>
 
 </body>
 </html>
