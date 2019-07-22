@@ -2,19 +2,28 @@
     require 'app/init.php';
 
     if(isset($_GET['query'])){
-        $query = $_GET['query']; 
+        $q = $_GET['query']; 
         $query = $es->search([
             'body' => [
                 'query'=> [
                     'bool' => [
                         'should' => [
-                            'match' => ['title' => $query],
-                            'match' => ['link' => $query],
-                            'match' => ['content' => $query]
+                            'wildcard' => [
+                                'title' => '*'.$q.'*'
+                            ],
+                            'wildcard' => [
+                                    'link'=> '*'.$q.'*'
+                            ],
+                            'wildcard' => [ 
+                                    'content'=>'*'.$q.'*'
+                            ] 
                         ]
                     ]
                 ]
             ]
+                        
+            //'from' => 0,
+            //'size' => 10
         ] );
 
         if( $query['hits']['total'] >= 1 ){
